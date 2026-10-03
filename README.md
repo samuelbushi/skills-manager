@@ -211,6 +211,10 @@ reject unsafe/special paths before writes: at most 512 UTF-8 bytes and 16
 components per path, 64 KiB of total paths and 16,384 total components.
 Links, special files and overwrite collisions are rejected; failed downloads
 discard their private staging directory instead of installing partial content.
+The desktop URL preview/import and CLI install both record `well-known`
+website snapshots, not Git or `skills.sh` repository sources. They are
+`local_only`: Git update checks, source diff and automatic refresh do not apply.
+Reinstall the website URL to fetch a newer snapshot.
 
 `--help` on any group or subcommand prints the full surface — the groups below
 each carry more than these examples show. `--dry-run` is available on selected

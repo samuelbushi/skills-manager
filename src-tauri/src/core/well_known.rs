@@ -46,20 +46,21 @@ pub fn parse_site_ref(input: &str) -> Result<SiteRef> {
         bail!("Expected a skills.sh /site/<domain>/<skill> URL");
     }
 
-    let segments: Vec<&str> = parsed
-        .path_segments()
-        .map(|segments| segments.collect())
-        .unwrap_or_default();
-    if segments.len() != 3 || segments[0] != "site" {
+    let Some(mut segments) = parsed.path_segments() else {
         bail!("Expected a skills.sh /site/<domain>/<skill> URL");
-    }
-    if !is_safe_segment(segments[1]) || !is_safe_segment(segments[2]) {
+    };
+    let (Some("site"), Some(domain), Some(skill), None) =
+        (segments.next(), segments.next(), segments.next(), segments.next())
+    else {
+        bail!("Expected a skills.sh /site/<domain>/<skill> URL");
+    };
+    if !is_safe_segment(domain) || !is_safe_segment(skill) {
         bail!("Invalid skills.sh site reference");
     }
 
     Ok(SiteRef {
-        source_url: format!("https://{}/", segments[1]),
-        skill_name: segments[2].to_string(),
+        source_url: format!("https://{domain}/"),
+        skill_name: skill.to_string(),
     })
 }
 
