@@ -5,6 +5,12 @@
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，
 版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [Unreleased]
+
+### 修复
+- `skills.sh/site/<domain>/<skill>` 网站技能链接改用公开 well-known 索引，不再尝试克隆无效的 GitHub 仓库（#381）。
+- 网站下载及 ZIP 解压执行摘要、总字节数、条目数和路径预算；危险路径、链接、覆盖冲突及损坏的 ZIP 在安装前报错（#382）。已运行确定性后端 ZIP/HTTP 测试及隔离的真实 Uizze CLI 安装；桌面原生安装尚未验证。
+
 ## [1.40.3] - 2026-10-02
 
 ### 发布概览

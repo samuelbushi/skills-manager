@@ -203,6 +203,15 @@ npm run cli -- skills update --all
 npm run cli -- skills adopt ~/.claude/skills --dry-run
 ```
 
+Website-synced `skills.sh/site/<domain>/<skill>` URLs use the publisher's
+well-known index, not GitHub cloning. SHA-256 digests are checked before
+archive extraction. Downloads are bounded to 50 MiB (aggregate for v1 file
+lists); ZIP output is bounded to 100 MiB and 4,096 entries. Both formats
+reject unsafe/special paths before writes: at most 512 UTF-8 bytes and 16
+components per path, 64 KiB of total paths and 16,384 total components.
+Links, special files and overwrite collisions are rejected; failed downloads
+discard their private staging directory instead of installing partial content.
+
 `--help` on any group or subcommand prints the full surface — the groups below
 each carry more than these examples show. `--dry-run` is available on selected
 commands, including `skills deploy/undeploy/sync/remove/adopt` and
